@@ -29,7 +29,7 @@ resource "aws_security_group" "default" {
     cidr_blocks = ["0.0.0.0/0"]
   }
   tags = {
-    Environment = "${var.resource_name_prefix}"
+    Environment = var.resource_name_prefix
     Name        = "${var.resource_name_prefix}-security-group"
   }
 }
