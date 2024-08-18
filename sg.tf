@@ -3,6 +3,7 @@ resource "aws_security_group" "default" {
   description = "Default security group to allow inbound/outbound from the VPC"
   vpc_id      = module.vpc.vpc_id
   ingress {
+    description = "Allow All Ingress"
     from_port = "0"
     to_port   = "0"
     protocol  = "-1"
@@ -10,6 +11,7 @@ resource "aws_security_group" "default" {
   }
 
   ingress {
+    description = "Explicitly Allow SSH Access" # Not recommended long-term
     from_port = "22"
     to_port   = "22"
     protocol  = "TCP"
@@ -23,6 +25,7 @@ resource "aws_security_group" "default" {
     cidr_blocks = ["0.0.0.0/0"]
   }
   egress {
+    description = "Allow Egress Everywhere"
     from_port   = "0"
     to_port     = "0"
     protocol    = "-1"

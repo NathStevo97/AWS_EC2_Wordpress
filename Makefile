@@ -15,3 +15,7 @@ tf-destroy:
 tf-nuke:
 	$(MAKE) tf-destroy
 	$(MAKE) tf-apply
+
+tf-test-run:
+	$(MAKE) tf-apply
+	$(MAKE) tf-destroy

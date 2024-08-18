@@ -3,7 +3,7 @@ resource "aws_db_instance" "wordpress" {
   storage_type           = "gp2"
   engine                 = "mysql"
   engine_version         = "5.7"
-  instance_class         = "db.t2.micro"
+  instance_class         = "db.t3.micro"
   db_name                = var.db_name
   username               = var.db_user
   password               = var.db_pass
@@ -23,7 +23,7 @@ resource "aws_db_subnet_group" "private" {
 
 resource "aws_db_parameter_group" "default" {
   name   = "${var.db_name}-pg"
-  family = "mysql5.6"
+  family = "mysql5.7"
 
   parameter {
     name  = "character_set_server"
@@ -33,5 +33,9 @@ resource "aws_db_parameter_group" "default" {
   parameter {
     name  = "character_set_client"
     value = "utf8"
+  }
+
+  lifecycle {
+    create_before_destroy = true
   }
 }
