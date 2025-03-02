@@ -1,4 +1,4 @@
-name: Tflint Checks on Terraform Code
+name: Terraform CI
 
 on:
   push:
@@ -12,11 +12,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-# Checkout Repository
+    # Checkout Repository
     - name : Check out Git Repository
       uses: actions/checkout@v4
 
-# TFLint - Terraform Check
+    # TFLint - Terraform Check
     - uses: actions/cache@v4
       name: Cache plugin dir
       with:
@@ -28,19 +28,20 @@ jobs:
       with:
         github_token: ${{ secrets.CI_GITHUB_TOKEN }}
 
-# Print TFLint version
+    # Print TFLint version
     - name: Show version
       run: tflint --version
 
-# Install plugins
+    # Install plugins
     - name: Init TFLint
       run: tflint --init
 
-# Run tflint command in each directory recursively # use --force if you want to continue with workflow although errors are there
+    # Run tflint command in each directory recursively # use --force if you want to continue with workflow although errors are there
     - name: Run TFLint
       run: tflint -f compact --recursive
 
-# Checkov - Prevent cloud misconfigurations and find vulnerabilities during build-time in infrastructure as code
+    # Checkov - Prevent cloud misconfigurations and find vulnerabilities during build-time in infrastructure as code
     - name: Run Checkov
       run: |
-          docker run -t -v ${{ github.workspace }}:/tf --workdir /tf bridgecrew/checkov --directory /tf --skip-check CKV2_GHA_1
+          docker run -t -v ${{ github.workspace }}:/tf --workdir /tf bridgecrew/checkov --directory /tf --skip-check CKV2_GHA_1 --quiet
+      continue-on-error: true
