@@ -14,12 +14,10 @@ data "amazon-ami" "ubuntu-wordpress" {
 locals { timestamp = regex_replace(timestamp(), "[- TZ:]", "") }
 
 source "amazon-ebs" "ubuntu-wordpress" {
-  #access_key    = "${var.aws_access_key}"
   ami_name      = "wordpress-ami-example ${local.timestamp}"
   instance_type = "t2.micro"
   region        = "eu-west-2"
   profile = "Nathan-Dev"
-  #secret_key    = "${var.aws_secret_key}"
   source_ami    = "${data.amazon-ami.ubuntu-wordpress.id}"
   ssh_username  = "ubuntu"
   tags = {

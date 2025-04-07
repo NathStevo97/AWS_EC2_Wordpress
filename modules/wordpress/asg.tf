@@ -45,7 +45,7 @@ resource "aws_launch_configuration" "web-server-launch-config" {
 }
 
 data "template_file" "asg_init" {
-  template = file("./userdata.tpl")
+  template = file("${path.module}/userdata.tpl")
   vars = {
     db_name = var.db_name
     db_pass = var.db_pass
