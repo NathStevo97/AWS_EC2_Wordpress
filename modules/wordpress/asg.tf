@@ -26,19 +26,19 @@ resource "aws_autoscaling_group" "web-server" {
 # Create a new ALB Target Group attachment
 resource "aws_autoscaling_attachment" "nginx-alb" {
   autoscaling_group_name = aws_autoscaling_group.web-server.id
-  lb_target_group_arn   = aws_lb_target_group.nginx-alb.arn
+  lb_target_group_arn    = aws_lb_target_group.nginx-alb.arn
 }
 
 # Initial configuration for all EC2 instances in the group
 ## Metadata, specs, user data / scripts, etc.
 resource "aws_launch_configuration" "web-server-launch-config" {
-  name          = "${var.resource_name_prefix}-web_config"
+  name = "${var.resource_name_prefix}-web_config"
   #image_id      = data.aws_ami.ubuntu.id
-  image_id = var.aws_ami_id
-  instance_type = "t2.micro"
-  user_data = data.template_file.asg_init.rendered
+  image_id        = var.aws_ami_id
+  instance_type   = "t2.micro"
+  user_data       = data.template_file.asg_init.rendered
   security_groups = [aws_security_group.default.id]
-  key_name = aws_key_pair.default.id
+  key_name        = aws_key_pair.default.id
   lifecycle {
     create_before_destroy = true
   }
@@ -51,6 +51,6 @@ data "template_file" "asg_init" {
     db_pass = var.db_pass
     db_user = var.db_user
     db_host = aws_db_instance.wordpress.address
-    efs_id = aws_efs_file_system.wordpress-efs.id
+    efs_id  = aws_efs_file_system.wordpress-efs.id
   }
 }

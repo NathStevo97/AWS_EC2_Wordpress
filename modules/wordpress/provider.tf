@@ -6,7 +6,7 @@ terraform {
       version = ">= 5.94.0"
     }
     template = {
-      source = "hashicorp/template"
+      source  = "hashicorp/template"
       version = "2.2.0"
     }
   }
@@ -15,8 +15,4 @@ terraform {
 provider "aws" {
   profile = "Nathan-Dev"
   region  = "eu-west-2"
-}
-
-provider "template" {
-  # Configuration options
 }

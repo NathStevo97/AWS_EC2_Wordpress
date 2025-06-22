@@ -3,7 +3,7 @@ resource "aws_lb" "nginx-alb" {
   internal                   = false
   load_balancer_type         = "application"
   subnets                    = module.vpc.public_subnets
-  security_groups    = [aws_security_group.default.id]
+  security_groups            = [aws_security_group.default.id]
   enable_deletion_protection = false
   tags = {
     Name = "Nginx-alb"
@@ -17,7 +17,7 @@ resource "aws_lb_target_group" "nginx-alb" {
   stickiness {
     type = "lb_cookie"
   }
-  vpc_id   = module.vpc.vpc_id
+  vpc_id = module.vpc.vpc_id
 }
 
 

@@ -1,10 +1,10 @@
 variable "vpc_cidr" {
-  type = string
+  type    = string
   default = "10.2.0.0/16"
 }
 
 variable "region" {
-  type = string
+  type    = string
   default = "eu-west-2"
 }
 
@@ -17,7 +17,7 @@ variable "availability_zone_map" {
   }
 }
 variable "resource_name_prefix" {
-  type = string
+  type    = string
   default = "aws-ec2-wordpress"
 }
 
