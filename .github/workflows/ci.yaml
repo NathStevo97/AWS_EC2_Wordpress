@@ -14,7 +14,7 @@ jobs:
 
     # Checkout Repository
     - name : Check out Git Repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
 
     # TFLint - Terraform Check
     - uses: actions/cache@v4
